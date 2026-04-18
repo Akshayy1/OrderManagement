@@ -3,10 +3,12 @@ import { Navigate } from 'react-router-dom';
 
 // Lazy load pages for better performance
 const Dashboard = lazy(() => import('../pages/Dashboard'));
-const OrderListing = lazy(() => import('../pages/OrderListing'));
-const OrderDetail = lazy(() => import('../pages/OrderDetail'));
-const OrderForm = lazy(() => import('../pages/OrderForm'));
-
+const ProductListing = lazy(() => import('../pages/ProductListing'));
+const ProductForm = lazy(() => import('../pages/ProductForm'));
+// const OrderListing = lazy(() => import('../pages/OrderListing'));
+// const OrderDetail = lazy(() => import('../pages/OrderDetail'));
+// const OrderForm = lazy(() => import('../pages/OrderForm'));
+// const LowStock = lazy(() => import('../pages/LowStock'));
 
 // Layouts
 const DashboardLayout = lazy(() => import('../layouts/DashboardLayout'));
@@ -25,26 +27,47 @@ export const routesConfig = [
         element: <Dashboard />
       },
       {
-        path: 'orders',
+        path: 'products',
         children: [
           {
             index: true,
-            element: <OrderListing />
+            element: <ProductListing />
           },
           {
             path: 'new',
-            element: <OrderForm />
-          },
-          {
-            path: ':id',
-            element: <OrderDetail />
+            element: <ProductForm />
           },
           {
             path: ':id/edit',
-            element: <OrderForm />
+            element: <ProductForm />
           }
         ]
-      }
+      },
+      // {
+      //   path: 'low-stock',
+      //   element: <LowStock />
+      // },
+      // {
+      //   path: 'orders',
+      //   children: [
+      //     {
+      //       index: true,
+      //       element: <OrderListing />
+      //     },
+      //     {
+      //       path: 'new',
+      //       element: <OrderForm />
+      //     },
+      //     {
+      //       path: ':id',
+      //       element: <OrderDetail />
+      //     },
+      //     {
+      //       path: ':id/edit',
+      //       element: <OrderForm />
+      //     }
+      //   ]
+      // }
     ]
   },
   {
