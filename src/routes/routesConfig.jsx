@@ -6,9 +6,9 @@ const Dashboard = lazy(() => import('../pages/Dashboard'));
 const ProductListing = lazy(() => import('../pages/ProductListing'));
 const ProductForm = lazy(() => import('../pages/ProductForm'));
 const OrderListing = lazy(() => import('../pages/OrderListing'));
-// const OrderDetail = lazy(() => import('../pages/OrderDetail'));
+const OrderDetail = lazy(() => import('../pages/OrderDetail'));
 const OrderForm = lazy(() => import('../pages/OrderForm'));
-// const LowStock = lazy(() => import('../pages/LowStock'));
+const LowStock = lazy(() => import('../pages/LowStock'));
 
 // Layouts
 const DashboardLayout = lazy(() => import('../layouts/DashboardLayout'));
@@ -43,10 +43,10 @@ export const routesConfig = [
           }
         ]
       },
-      // {
-      //   path: 'low-stock',
-      //   element: <LowStock />
-      // },
+      {
+        path: 'low-stock',
+        element: <LowStock />
+      },
       {
         path: 'orders',
         children: [
@@ -58,10 +58,10 @@ export const routesConfig = [
             path: 'new',
             element: <OrderForm />
           },
-          // {
-          //   path: ':id',
-          //   element: <OrderDetail />
-          // },
+          {
+            path: ':id',
+            element: <OrderDetail />
+          },
           {
             path: ':id/edit',
             element: <OrderForm />
