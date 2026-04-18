@@ -12,6 +12,7 @@ import { StatCard } from '../components/Dashboard/StatCard';
 import { useOrderStore } from '../stores/useOrderStore';
 import { useProductStore } from '../stores/useProductStore';
 import { Button } from '../components/ui/Button';
+import { formatCurrency, formatDate } from '../utils/format';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { useDashboardStore } from '../stores/useDashboardStore';
 import { useState, useEffect } from 'react';

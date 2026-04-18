@@ -1,17 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-import DashboardLayout from './layouts/DashboardLayout'
-function App() {
-  const [count, setCount] = useState(0)
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRoutes from './routes/AppRoutes';
 
+/**
+ * Enterprise Order Management System
+ * Professional grade frontend-only architecture.
+ */
+function App() {
   return (
-    <>
-    <DashboardLayout/>
-   </>
-  )
+    <Router>
+      <AppRoutes />
+    </Router>
+  );
 }
 
-export default App
+export default App;
