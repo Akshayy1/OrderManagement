@@ -1,6 +1,10 @@
+import { useProductStore } from '../stores/useProductStore';
+import { useOrderStore } from '../stores/useOrderStore';
 
-
-
+export const mockDataService = {
+  generateMockData: () => {
+    const { setProducts } = useProductStore.getState();
+    const { setOrders } = useOrderStore.getState();
 
     const products = [
       { id: 'PRD-001', name: 'MacBook Pro M3 Max', sku: 'APPLE-MBP-M3MX', price: 299900, stock: 12, minQuantity: 5, status: 'In Stock', description: 'Ultimate power for professionals.' },
@@ -46,3 +50,7 @@
       }
     ];
 
+    setProducts(products);
+    setOrders(orders);
+  }
+};
