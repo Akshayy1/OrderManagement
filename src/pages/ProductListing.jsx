@@ -74,7 +74,7 @@ export default function ProductListing() {
 
   const filteredProducts = products.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()) ||
-      (p.sku && p.sku.toLowerCase().includes(search.toLowerCase()));
+      (p.sku && String(p.sku).toLowerCase().includes(search.toLowerCase()));
     const matchesStatus = statusFilter === 'All Statuses' || p.status === statusFilter;
     return matchesSearch && matchesStatus;
   });

@@ -56,8 +56,8 @@ export default function OrderListing() {
   };
 
   const filteredOrders = orders.filter(o => {
-    const matchesSearch = o.id.toLowerCase().includes(search.toLowerCase()) ||
-      o.customer.toLowerCase().includes(search.toLowerCase());
+    const matchesSearch = String(o.id).toLowerCase().includes(search.toLowerCase()) ||
+      String(o.customer).toLowerCase().includes(search.toLowerCase());
     const matchesStatus = statusFilter === 'All Statuses' || o.status === statusFilter;
     return matchesSearch && matchesStatus;
   });

@@ -65,6 +65,8 @@ export default function ProductForm() {
         let price = product.price;
         if (typeof price === 'string') {
           price = Number(price.replace(/[^0-9.-]+/g, ""));
+        } else {
+          price = Number(price);
         }
         
         setValue('name', product.name);

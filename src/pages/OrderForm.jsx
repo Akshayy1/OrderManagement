@@ -182,6 +182,8 @@ export default function OrderForm() {
     let productPrice = product.price;
     if (typeof productPrice === 'string') {
        productPrice = Number(productPrice.replace(/[^0-9.-]+/g, ""));
+    } else {
+       productPrice = Number(productPrice);
     }
 
     if (existingItem) {
@@ -213,7 +215,7 @@ export default function OrderForm() {
   const onSubmit = (data) => {
     const submissionData = {
       ...data,
-      date: data.date.toISOString().split('T')[0]
+      date: data.date instanceof Date ? data.date.toISOString().split('T')[0] : data.date
     };
 
     if (isEditing) {

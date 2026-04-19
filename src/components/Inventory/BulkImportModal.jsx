@@ -43,17 +43,34 @@ Sony Headphones,SNY-WH1000,29999,15,10,Low Stock`;
         parsed = JSON.parse(data);
         if (!Array.isArray(parsed)) throw new Error('JSON must be an array of products');
       } else {
-        const lines = data.split('\n').filter(line => line.trim());
+        const lines = data.split('\n').map(line => line.trim()).filter(line => line);
+        if (lines.length < 2) throw new Error('Data must contain headers and at least one row');
+        
         const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
         
-        parsed = lines.slice(1).map(line => {
-          const values = line.split(',').map(v => v.trim());
+        parsed = lines.slice(1).map((line, lineIdx) => {
+          // Robust split that handles some quoted values if needed, but keeping it relatively simple
+          const values = [];
+          let current = "";
+          let inQuotes = false;
+          
+          for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') inQuotes = !inQuotes;
+            else if (char === ',' && !inQuotes) {
+              values.push(current.trim());
+              current = "";
+            } else {
+              current += char;
+            }
+          }
+          values.push(current.trim());
+
           const obj = {};
           headers.forEach((h, i) => {
-            // Map headers to internal keys
             let key = h;
             if (h === 'minstock') key = 'minQuantity';
-            obj[key] = values[i];
+            obj[key] = values[i] || '';
           });
           return obj;
         });
