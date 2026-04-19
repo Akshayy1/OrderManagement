@@ -18,7 +18,7 @@ export default function Sidebar({ items, isExpanded, setIsExpanded, openMenus, t
         x: (typeof window !== 'undefined' && window.innerWidth < 1024 && !isExpanded) ? -80 : 0
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="fixed lg:relative top-0 left-0 flex flex-col h-full bg-card shadow-[4px_0_24px_rgba(0,0,0,0.02)] dark:shadow-[4px_0_24px_rgba(0,0,0,0.2)] z-50 transition-colors duration-500"
+      className="fixed lg:relative top-0 left-0 flex flex-col h-full bg-card shadow-[4px_0_24px_rgba(0,0,0,0.02)] dark:shadow-[4px_0_24px_rgba(0,0,0,0.2)] z-50 transition-colors duration-500 overflow-hidden"
     >
       <div className="flex items-center px-6 h-20 shrink-0">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center shadow-lg shadow-primary/20 shrink-0">

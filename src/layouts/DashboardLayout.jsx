@@ -73,6 +73,18 @@ export default function DashboardLayout() {
     { name: 'Create Order', path: '/orders/new', icon: PlusCircle },
   ];
 
+  const getPageTitle = (pathname) => {
+    if (pathname === '/dashboard') return 'Dashboard';
+    if (pathname === '/products') return 'Inventory';
+    if (pathname === '/low-stock') return 'Low Stock';
+    if (pathname === '/orders') return 'Orders';
+    if (pathname === '/orders/new') return 'New Order';
+    if (pathname.includes('/orders/')) return 'Order Details';
+    return 'Order Management';
+  };
+
+  const currentTitle = getPageTitle(location.pathname);
+
   const [openMenus, setOpenMenus] = useState(['Inventory']);
 
   const toggleMenu = (name) => {
@@ -115,6 +127,7 @@ export default function DashboardLayout() {
           unreadCount={unreadCount}
           onOpenNotifications={handleOpenNotifications}
           toggleSidebar={() => setIsExpanded(!isExpanded)}
+          title={currentTitle}
         />
 
         <ToastContainer toasts={toasts} />

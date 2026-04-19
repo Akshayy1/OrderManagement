@@ -10,17 +10,29 @@ export default function Header({
   notifications,
   unreadCount,
   onOpenNotifications,
-  toggleSidebar // New prop
+  toggleSidebar,
+  title
 }) {
   return (
     <header className="flex items-center justify-between h-20 px-4 md:px-8 bg-transparent z-40 transition-all duration-300">
-      <button
-        onClick={toggleSidebar}
-        className="p-2.5 text-textMuted hover:text-textMain hover:bg-white/10 rounded-xl transition-all duration-300 lg:hidden"
-        title="Toggle Menu"
-      >
-        <Menu className="w-6 h-6" />
-      </button>
+      <div className="flex items-center gap-4 lg:gap-0">
+        <button
+          onClick={toggleSidebar}
+          className="p-2.5 text-textMuted hover:text-textMain hover:bg-white/10 rounded-xl transition-all duration-300 lg:hidden"
+          title="Toggle Menu"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+
+        <motion.h1 
+          key={title}
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-lg font-black text-textMain tracking-tight lg:hidden ml-2"
+        >
+          {title}
+        </motion.h1>
+      </div>
 
       <div className="flex items-center gap-4 p-2 bg-card/40 backdrop-blur-xl rounded-2xl shadow-sm border border-white/10 dark:border-white/5 ml-auto">
         <button
