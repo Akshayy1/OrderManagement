@@ -16,9 +16,10 @@ export default function ProductTable({ products, onDeleteClick }) {
   }
 
   return (
-    <Card className="glass overflow-visible shadow-lg border-white/5">
-      <div className="">
-        <table className="w-full text-sm text-left hidden md:table">
+    <>
+      {/* Desktop Table View */}
+      <Card className="glass overflow-visible shadow-lg border-white/5 hidden md:block">
+        <table className="w-full text-sm text-left">
           <thead className="text-[11px] text-textMuted uppercase tracking-widest bg-black/5 dark:bg-white/5 border-b border-border">
             <tr>
               <th className="px-6 py-4 font-bold">Product</th>
@@ -79,54 +80,64 @@ export default function ProductTable({ products, onDeleteClick }) {
             </AnimatePresence>
           </tbody>
         </table>
+      </Card>
 
-        {/* Mobile View */}
-        <div className="block md:hidden divide-y divide-border">
+      {/* Mobile View */}
+      <div className="flex flex-col gap-4 md:hidden">
+        <AnimatePresence>
           {products.map((product) => (
-            <div key={product.id} className="p-4 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
-              <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                    <Package className="w-5 h-5 text-primary" />
+            <motion.div
+              key={product.id}
+              layout
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+            >
+              <Card className="glass p-4 border-white/5 active:scale-[0.99] transition-transform">
+                <div className="flex justify-between items-start mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                      <Package className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-textMain leading-tight">{product.name}</h4>
+                      <p className="text-xs text-textMuted">{product.sku}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-textMain leading-tight">{product.name}</h4>
-                    <p className="text-xs text-textMuted">{product.sku}</p>
+                  <Badge variant={statusStyles[product.status]}>{product.status}</Badge>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="bg-black/5 dark:bg-white/5 p-2.5 rounded-xl border border-border/50">
+                    <p className="text-[10px] uppercase font-bold text-textMuted mb-1">Price</p>
+                    <p className="text-sm font-bold text-textMain">
+                      {typeof product.price === 'number' ? `₹${product.price.toLocaleString('en-IN')}` : product.price}
+                    </p>
+                  </div>
+                  <div className="bg-black/5 dark:bg-white/5 p-2.5 rounded-xl border border-border/50">
+                    <p className="text-[10px] uppercase font-bold text-textMuted mb-1">In Stock</p>
+                    <p className="text-sm font-bold text-textMain">{product.stock} units</p>
                   </div>
                 </div>
-                <Badge variant={statusStyles[product.status]}>{product.status}</Badge>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="bg-black/5 dark:bg-white/5 p-2.5 rounded-lg border border-border/50">
-                  <p className="text-[10px] uppercase font-bold text-textMuted mb-1">Price</p>
-                  <p className="text-sm font-bold text-textMain">
-                    {typeof product.price === 'number' ? `₹${product.price.toLocaleString('en-IN')}` : product.price}
-                  </p>
-                </div>
-                <div className="bg-black/5 dark:bg-white/5 p-2.5 rounded-lg border border-border/50">
-                  <p className="text-[10px] uppercase font-bold text-textMuted mb-1">In Stock</p>
-                  <p className="text-sm font-bold text-textMain">{product.stock} units</p>
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <Link to={`/products/${product.id}/edit`} className="flex-1">
-                  <button className="w-full h-9 bg-secondary text-textMain rounded-lg text-xs font-bold hover:bg-secondary/80 transition-all flex items-center justify-center">
-                    <Edit className="w-3.5 h-3.5 mr-2" /> Edit
+                <div className="flex gap-2">
+                  <Link to={`/products/${product.id}/edit`} className="flex-1">
+                    <button className="w-full h-10 bg-black/5 dark:bg-white/10 text-textMain border border-border rounded-xl text-xs font-bold hover:bg-black/10 dark:hover:bg-white/20 transition-all flex items-center justify-center">
+                      <Edit className="w-3.5 h-3.5 mr-2" /> Edit Details
+                    </button>
+                  </Link>
+                  <button
+                    onClick={() => onDeleteClick(product.id)}
+                    className="h-10 px-4 bg-rose-500/10 text-rose-500 rounded-xl hover:bg-rose-500 hover:text-white transition-all"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
                   </button>
-                </Link>
-                <button
-                  onClick={() => onDeleteClick(product.id)}
-                  className="h-9 px-3 bg-rose-500/10 text-rose-500 rounded-lg hover:bg-rose-500 hover:text-white transition-all"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
+                </div>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </AnimatePresence>
       </div>
-    </Card>
+    </>
   );
 }

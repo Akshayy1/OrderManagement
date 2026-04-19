@@ -119,7 +119,7 @@ export default function DashboardLayout() {
 
         <ToastContainer toasts={toasts} />
 
-        <main className="flex-1 overflow-y-auto overflow-x-hidden relative p-8 scroll-smooth">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden relative p-4 md:p-8 scroll-smooth">
           {/* Background Decorative Elements */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10 animate-pulse pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[100px] -z-10 pointer-events-none" />

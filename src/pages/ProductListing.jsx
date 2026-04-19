@@ -113,7 +113,7 @@ export default function ProductListing() {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-3 md:gap-4">
-        <div className="relative flex-1">
+        <div className="relative w-full lg:flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-textMuted" />
           <input
             type="text"
@@ -123,8 +123,8 @@ export default function ProductListing() {
             className="w-full h-11 md:h-10 pl-10 pr-4 py-2 bg-card border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-textMain placeholder:text-textMuted transition-all shadow-sm"
           />
         </div>
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1 sm:flex-none">
+        <div className="w-full lg:w-64">
+          <div className="relative w-full">
             <select
               className="w-full h-11 md:h-10 bg-card border border-border text-textMain rounded-xl pl-3 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer shadow-sm"
               value={statusFilter}
