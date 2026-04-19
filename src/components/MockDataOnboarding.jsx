@@ -35,14 +35,14 @@ export default function MockDataOnboarding() {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 bg-black/60 backdrop-blur-md"
             onClick={handleDismiss}
           />
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -50,20 +50,20 @@ export default function MockDataOnboarding() {
             className="relative w-full max-w-lg bg-card border border-white/10 shadow-2xl rounded-3xl overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[80px] -z-10 -translate-y-1/2 translate-x-1/2" />
-            
+
             <div className="p-8">
               <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl shadow-primary/20">
                 <Database className="w-8 h-8" />
               </div>
-              
+
               <h2 className="text-3xl font-black tracking-tight text-textMain mb-4">
-                Welcome to FastFleet<span className="text-primary">.</span>
+                Welcome<span className="text-primary">.</span>
               </h2>
-              
+
               <p className="text-textMuted leading-relaxed mb-8">
                 Your console is currently empty. Would you like to initialize the system with <span className="text-primary font-bold">Mock Data</span> to explore the features?
               </p>
-              
+
               <div className="space-y-4 mb-8">
                 <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
@@ -84,16 +84,16 @@ export default function MockDataOnboarding() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex flex-col gap-3">
-                <Button 
+                <Button
                   onClick={handleInject}
                   className="w-full py-6 text-base font-black uppercase tracking-widest rounded-2xl group"
                 >
                   Generate Mock Data <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   onClick={handleDismiss}
                   className="w-full py-4 text-xs font-bold text-textMuted hover:text-textMain"
                 >

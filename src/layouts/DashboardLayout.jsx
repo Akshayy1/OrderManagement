@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Outlet, useLocation } from 'react-router-dom';
 import { LayoutDashboard, ShoppingCart, PlusCircle, Package } from 'lucide-react';
 import { Suspense } from 'react';
@@ -91,7 +92,20 @@ export default function DashboardLayout() {
         onCreateOrderClick={handleCreateOrderClick}
       />
 
-      <div className="flex flex-col flex-1 min-w-0 bg-background/50 relative">
+      {/* Mobile Backdrop */}
+      <AnimatePresence>
+        {isExpanded && typeof window !== 'undefined' && window.innerWidth < 1024 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsExpanded(false)}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      <div className="flex flex-col flex-1 min-w-0 bg-background/50 relative lg:ml-0">
         <Header 
           theme={theme}
           toggleTheme={toggleTheme}
@@ -100,6 +114,7 @@ export default function DashboardLayout() {
           notifications={notifications}
           unreadCount={unreadCount}
           onOpenNotifications={handleOpenNotifications}
+          toggleSidebar={() => setIsExpanded(!isExpanded)}
         />
 
         <ToastContainer toasts={toasts} />

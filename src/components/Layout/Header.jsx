@@ -1,24 +1,28 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, Bell, User } from 'lucide-react';
+import { Sun, Moon, Bell, User, Menu } from 'lucide-react';
 import NotificationDropdown from './NotificationDropdown';
 
-export default function Header({ 
-  theme, 
-  toggleTheme, 
-  notificationsOpen, 
-  setNotificationsOpen, 
-  notifications, 
-  unreadCount, 
-  onOpenNotifications 
+export default function Header({
+  theme,
+  toggleTheme,
+  notificationsOpen,
+  setNotificationsOpen,
+  notifications,
+  unreadCount,
+  onOpenNotifications,
+  toggleSidebar // New prop
 }) {
   return (
-    <header className="flex items-center justify-between h-20 px-8 bg-transparent z-40 transition-all duration-300">
-      <div className="flex items-center gap-4">
-        <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-        <span className="text-sm font-black uppercase tracking-widest text-textMuted opacity-50">System Console</span>
-      </div>
+    <header className="flex items-center justify-between h-20 px-4 md:px-8 bg-transparent z-40 transition-all duration-300">
+      <button
+        onClick={toggleSidebar}
+        className="p-2.5 text-textMuted hover:text-textMain hover:bg-white/10 rounded-xl transition-all duration-300 lg:hidden"
+        title="Toggle Menu"
+      >
+        <Menu className="w-6 h-6" />
+      </button>
 
-      <div className="flex items-center gap-4 p-2 bg-card/40 backdrop-blur-xl rounded-2xl shadow-sm border border-white/10 dark:border-white/5">
+      <div className="flex items-center gap-4 p-2 bg-card/40 backdrop-blur-xl rounded-2xl shadow-sm border border-white/10 dark:border-white/5 ml-auto">
         <button
           onClick={toggleTheme}
           className="p-2.5 text-textMuted hover:text-textMain hover:bg-white/10 rounded-xl transition-all duration-300"
@@ -47,11 +51,11 @@ export default function Header({
               <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-card"></span>
             )}
           </button>
-          
-          <NotificationDropdown 
-            isOpen={notificationsOpen} 
-            notifications={notifications} 
-            unreadCount={unreadCount} 
+
+          <NotificationDropdown
+            isOpen={notificationsOpen}
+            notifications={notifications}
+            unreadCount={unreadCount}
           />
         </div>
 

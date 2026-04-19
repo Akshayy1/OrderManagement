@@ -5,15 +5,24 @@ import { Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 export default function Sidebar({ items, isExpanded, setIsExpanded, openMenus, toggleMenu, onCreateOrderClick }) {
   const location = useLocation();
 
+  const handleItemClick = () => {
+    if (window.innerWidth < 1024) {
+      setIsExpanded(false);
+    }
+  };
+
   return (
     <motion.aside
-      animate={{ width: isExpanded ? 288 : 80 }}
+      animate={{ 
+        width: isExpanded ? 288 : 80,
+        x: (typeof window !== 'undefined' && window.innerWidth < 1024 && !isExpanded) ? -80 : 0
+      }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="relative flex flex-col h-full bg-card shadow-[4px_0_24px_rgba(0,0,0,0.02)] dark:shadow-[4px_0_24px_rgba(0,0,0,0.2)] z-50 transition-colors duration-500"
+      className="fixed lg:relative top-0 left-0 flex flex-col h-full bg-card shadow-[4px_0_24px_rgba(0,0,0,0.02)] dark:shadow-[4px_0_24px_rgba(0,0,0,0.2)] z-50 transition-colors duration-500"
     >
       <div className="flex items-center px-6 h-20 shrink-0">
         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center shadow-lg shadow-primary/20 shrink-0">
-          <span className="text-white font-black text-xl">F</span>
+          <span className="text-white font-black text-xl">BT</span>
         </div>
         <AnimatePresence>
           {isExpanded && (
@@ -23,7 +32,7 @@ export default function Sidebar({ items, isExpanded, setIsExpanded, openMenus, t
               exit={{ opacity: 0, x: -10 }}
               className="ml-3 text-xl font-black tracking-tight whitespace-nowrap text-textMain"
             >
-              FastFleet<span className="text-primary">.</span>
+              Order Management<span className="text-primary">.</span>
             </motion.h1>
           )}
         </AnimatePresence>
@@ -41,7 +50,16 @@ export default function Sidebar({ items, isExpanded, setIsExpanded, openMenus, t
             return (
               <div key={item.name} className="space-y-1">
                 <button
-                  onClick={() => isExpanded && toggleMenu(item.name)}
+                  onClick={() => {
+                    if (!isExpanded) {
+                      setIsExpanded(true);
+                      if (!openMenus.includes(item.name)) {
+                        toggleMenu(item.name);
+                      }
+                    } else {
+                      toggleMenu(item.name);
+                    }
+                  }}
                   className={`w-full flex items-center h-12 rounded-xl transition-all duration-300 group relative ${isChildActive
                     ? 'bg-primary/10 text-primary border border-primary/20'
                     : 'text-textMuted hover:text-textMain hover:bg-primary/5'
@@ -71,6 +89,7 @@ export default function Sidebar({ items, isExpanded, setIsExpanded, openMenus, t
                           <NavLink
                             key={child.name}
                             to={child.path}
+                            onClick={handleItemClick}
                             className={({ isActive }) =>
                               `flex items-center h-10 rounded-lg px-4 transition-all duration-300 text-xs font-black tracking-tight ${isActive
                                 ? 'bg-primary text-white shadow-lg shadow-primary/20'
@@ -93,7 +112,12 @@ export default function Sidebar({ items, isExpanded, setIsExpanded, openMenus, t
               key={item.name}
               to={item.path}
               end={item.end}
-              onClick={item.name === 'Create Order' ? onCreateOrderClick : undefined}
+              onClick={() => {
+                if (item.name === 'Create Order' && onCreateOrderClick) {
+                  onCreateOrderClick();
+                }
+                handleItemClick();
+              }}
               className={({ isActive }) =>
                 `flex items-center h-12 rounded-xl transition-all duration-300 group relative ${isActive
                   ? 'bg-primary text-white shadow-xl shadow-primary/30'

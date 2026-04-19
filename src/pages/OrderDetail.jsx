@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { 
-  ArrowLeft, Printer, Edit, Package, User, FileText, 
-  CheckCircle2, History, AlertCircle, ShoppingBag 
+import {
+  ArrowLeft, Printer, Edit, Package, User, FileText,
+  CheckCircle2, History, AlertCircle, ShoppingBag
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
@@ -26,7 +26,7 @@ export default function OrderDetail() {
   const { id } = useParams();
   const { getOrderById } = useOrderStore();
   const { dispatchNotification } = useNotificationStore();
-  
+
   const [note, setNote] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -36,7 +36,7 @@ export default function OrderDetail() {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 400);
-    
+
     if (order) {
       setNote(order.notes || '');
     }
@@ -55,8 +55,8 @@ export default function OrderDetail() {
   if (isError) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <ErrorView 
-          title="Data Extraction Fault" 
+        <ErrorView
+          title="Data Extraction Fault"
           message="The system failed to retrieve the encrypted order manifest from the secure vault."
           onRetry={() => { setIsError(false); setIsLoading(true); }}
         />
@@ -67,7 +67,7 @@ export default function OrderDetail() {
   if (!isLoading && !order) {
     return (
       <div className="py-20 max-w-2xl mx-auto">
-        <EmptyState 
+        <EmptyState
           icon={ShoppingBag}
           title="Order Not Found"
           description={`The order identifier "${id}" does not exist in our central distribution database.`}
@@ -124,7 +124,7 @@ export default function OrderDetail() {
             <p className="text-sm font-bold text-zinc-500">#{order.id}</p>
           </div>
           <div className="text-right">
-            <h2 className="text-xl font-bold">FastFleet Core Systems</h2>
+            <h2 className="text-xl font-bold">Order Management Systems</h2>
             <p className="text-sm text-zinc-500">123 Logistics Boulevard, Tech City</p>
           </div>
         </div>
@@ -262,17 +262,16 @@ export default function OrderDetail() {
                 <div className="relative border-l-2 border-border/70 ml-3 space-y-10">
                   {(order.history || [{ date: order.date, event: 'Order Initialized', note: 'Legacy data migration' }]).map((log, i) => (
                     <div key={i} className="relative pl-10 group">
-                      <div className={`absolute -left-[11px] top-0 w-5 h-5 flex items-center justify-center rounded-lg rotate-45 border-2 transition-all ${
-                        i === 0 
-                          ? 'bg-primary border-primary ring-4 ring-primary/10 text-white' 
+                      <div className={`absolute -left-[11px] top-0 w-5 h-5 flex items-center justify-center rounded-lg rotate-45 border-2 transition-all ${i === 0
+                          ? 'bg-primary border-primary ring-4 ring-primary/10 text-white'
                           : 'bg-card border-border text-textMuted'
-                      }`}>
+                        }`}>
                         <div className="-rotate-45 font-black text-[8px]">{i + 1}</div>
                       </div>
                       <div className="transition-all group-hover:translate-x-1">
                         <div className="flex items-center gap-3">
-                           <h4 className="text-xs font-black uppercase tracking-widest text-textMain">{log.event}</h4>
-                           <span className="text-[10px] font-bold text-textMuted opacity-50">{log.date}</span>
+                          <h4 className="text-xs font-black uppercase tracking-widest text-textMain">{log.event}</h4>
+                          <span className="text-[10px] font-bold text-textMuted opacity-50">{log.date}</span>
                         </div>
                         <p className="text-sm text-textMuted mt-2 font-medium bg-black/5 dark:bg-white/5 p-3 rounded-xl border border-border/50 shadow-inner italic">
                           "{log.note}"
@@ -321,7 +320,7 @@ export default function OrderDetail() {
                 </h3>
               </div>
               <CardContent className="p-6">
-                <textarea 
+                <textarea
                   className="w-full h-32 bg-black/5 dark:bg-white/5 border border-border rounded-2xl p-4 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-primary text-textMain placeholder:text-textMuted mb-4 shadow-inner resize-none transition-all"
                   placeholder="Insert secure internal memo..."
                   value={note}
