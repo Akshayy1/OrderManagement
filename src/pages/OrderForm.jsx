@@ -220,6 +220,7 @@ export default function OrderForm() {
 
     if (isEditing) {
       updateOrder(id, submissionData);
+      dispatchNotification(`Order #${id} has been updated successfully`, 'success');
       navigate('/orders');
     } else {
       orderService.createOrder(submissionData);

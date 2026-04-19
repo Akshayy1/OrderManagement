@@ -16,8 +16,8 @@ export default function ProductTable({ products, onDeleteClick }) {
   }
 
   return (
-    <Card className="glass overflow-hidden shadow-lg border-white/5">
-      <div className="overflow-x-auto">
+    <Card className="glass overflow-visible shadow-lg border-white/5">
+      <div className="">
         <table className="w-full text-sm text-left hidden md:table">
           <thead className="text-[11px] text-textMuted uppercase tracking-widest bg-black/5 dark:bg-white/5 border-b border-border">
             <tr>

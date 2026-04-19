@@ -54,13 +54,15 @@ export const orderService = {
         updateStock(item.id, item.quantity);
       });
       historyNote = 'Order cancelled. Inventory levels restored.';
-      dispatchNotification(`Order ${id} cancelled. Items returned to stock.`, 'warning');
+      dispatchNotification(`Order ${id} has been cancelled.`, 'danger');
     } else if (order.status === 'Cancelled' && newStatus !== 'Cancelled') {
       order.items.forEach(item => {
         updateStock(item.id, -item.quantity);
       });
       historyNote = `Order re-activated from cancellation. New status: ${newStatus}`;
-      dispatchNotification(`Order ${id} re-activated.`, 'info');
+      dispatchNotification(`Order ${id} has been re-activated to ${newStatus}.`, 'info');
+    } else {
+      dispatchNotification(`Order ${id} marked as ${newStatus}`, 'success');
     }
 
     const newHistory = [
@@ -84,7 +86,7 @@ export const orderService = {
      updateOrder(id, { notes: noteText, history: newHistory });
   },
 
-  deleteOrder: (id) => {
+  deleteOrder: (id, quiet = false) => {
     const { deleteOrder, getOrderById } = useOrderStore.getState();
     const { updateStock } = useProductStore.getState();
     const { dispatchNotification } = useNotificationStore.getState();
@@ -97,6 +99,8 @@ export const orderService = {
     }
 
     deleteOrder(id);
-    dispatchNotification(`Order ${id} removed.`, 'info');
+    if (!quiet) {
+      dispatchNotification(`Order ${id} removed.`, 'info');
+    }
   }
 };

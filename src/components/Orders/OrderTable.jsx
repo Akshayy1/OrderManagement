@@ -29,8 +29,8 @@ export default function OrderTable({
   const allSelected = selectedIds.length === orders.length && orders.length > 0;
 
   return (
-    <Card className="glass overflow-hidden shadow-lg border-white/5">
-      <div className="overflow-x-auto">
+    <Card className="glass overflow-visible shadow-lg border-white/5">
+      <div className="">
         <table className="w-full text-sm text-left hidden md:table">
           <thead className="text-[11px] text-textMuted uppercase tracking-widest bg-black/5 dark:bg-white/5 border-b border-border">
             <tr>
@@ -95,7 +95,7 @@ export default function OrderTable({
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
-                      <div className="relative">
+                    <div className="relative">
                         <button
                           onClick={() => setActiveMenuId(activeMenuId === order.id ? null : order.id)}
                           className={`p-2 rounded-lg transition-colors ${activeMenuId === order.id ? 'bg-primary/20 text-primary' : 'text-textMuted hover:text-textMain hover:bg-black/10'}`}
@@ -109,7 +109,7 @@ export default function OrderTable({
                               initial={{ opacity: 0, scale: 0.95, y: -10 }}
                               animate={{ opacity: 1, scale: 1, y: 0 }}
                               exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                              className="absolute right-0 top-full mt-2 w-44 bg-card border border-border rounded-xl shadow-2xl overflow-hidden z-20"
+                              className="absolute right-0 top-full mt-2 w-44 bg-card border border-border rounded-xl shadow-2xl overflow-hidden z-[100]"
                             >
                               <div className="p-1.5 space-y-0.5">
                                 <div className="px-3 py-2 text-[10px] font-bold text-textMuted uppercase tracking-widest border-b border-border/50 mb-1">Update Status</div>
@@ -165,12 +165,41 @@ export default function OrderTable({
                     <Eye className="w-3.5 h-3.5 mr-2" /> Details
                   </button>
                 </Link>
-                <button
-                  onClick={() => setActiveMenuId(activeMenuId === order.id ? null : order.id)}
-                  className={`h-9 px-3 rounded-lg border border-border flex items-center justify-center transition-colors ${activeMenuId === order.id ? 'bg-primary text-white border-primary' : 'bg-card text-textMuted'}`}
-                >
-                  <MoreHorizontal className="w-4 h-4" />
-                </button>
+                <div className="relative">
+                  <button
+                    onClick={() => setActiveMenuId(activeMenuId === order.id ? null : order.id)}
+                    className={`h-9 px-3 rounded-lg border border-border flex items-center justify-center transition-colors ${activeMenuId === order.id ? 'bg-primary text-white border-primary' : 'bg-card text-textMuted'}`}
+                  >
+                    <MoreHorizontal className="w-4 h-4" />
+                  </button>
+
+                  <AnimatePresence>
+                    {activeMenuId === order.id && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                        className="absolute right-0 bottom-full mb-2 w-44 bg-card border border-border rounded-xl shadow-2xl overflow-hidden z-[100]"
+                      >
+                        <div className="p-1.5 space-y-0.5">
+                          <div className="px-3 py-2 text-[10px] font-bold text-textMuted uppercase tracking-widest border-b border-border/50 mb-1">Update Status</div>
+                          {Object.keys(statusStyles).map(status => (
+                            <button
+                              key={status}
+                              onClick={() => {
+                                onStatusChange(order.id, status);
+                              }}
+                              className={`w-full text-left px-3 py-2 text-sm rounded-lg transition-colors flex justify-between items-center ${order.status === status ? 'bg-primary/10 text-primary font-bold' : 'text-textMain hover:bg-black/5 dark:hover:bg-white/5'}`}
+                            >
+                              {status}
+                              {order.status === status && <Check className="w-3.5 h-3.5" />}
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <button
                   onClick={() => onDeleteClick(order.id)}
                   className="h-9 px-3 bg-rose-500/10 text-rose-500 rounded-lg hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center"

@@ -78,8 +78,11 @@ export default function OrderListing() {
 
   const handleBulkDelete = () => {
     if (!selectedIds.length) return;
-    selectedIds.forEach(id => orderService.deleteOrder(id));
+    const count = selectedIds.length;
+    selectedIds.forEach(id => orderService.deleteOrder(id, true)); // Added quiet mode to avoid spam
     setSelectedIds([]);
+    const { dispatchNotification } = useNotificationStore.getState();
+    dispatchNotification(`Successfully removed ${count} orders.`, 'info');
   };
 
   return (
